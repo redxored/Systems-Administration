@@ -1,0 +1,16 @@
+#just change the hosts value for whatever server group you want to use.
+
+---
+- hosts: web
+  tasks:
+  - name: makes sure yum is installed
+    yum: name=httpd state=present
+
+  - name: makes sure the httpd service is enabled
+    service: name=httpd enabled=yes
+
+  - name: gives them your config file
+    copy: src=/virtualhost.conf dest=/etc/httpd/conf/httpd.conf
+
+  - name: restarts the service
+    service: service name=httpd state=restarted
